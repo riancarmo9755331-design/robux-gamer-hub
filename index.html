@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Robux Gamer Hub</title>
+<style>
+:root{--bg:#090d18;--panel:#131b2e;--panel2:#1a2540;--line:#2b3a5e;--text:#f3f6ff;--muted:#aab6d3;--cyan:#49e6d0;--purple:#9476ff;--red:#ff7c91;--green:#7cf0a8}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#17234a 0,#090d18 55%);font-family:system-ui,Segoe UI,Arial,sans-serif;color:var(--text);min-height:100vh}
+header{padding:24px 16px;text-align:center;border-bottom:1px solid #ffffff12}header .logo{font-size:clamp(26px,5vw,42px);font-weight:900;letter-spacing:-1px}header .logo span{color:var(--cyan)}header p{color:var(--muted);margin:8px auto 0;max-width:700px}
+nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:18px}button,.btn{background:linear-gradient(100deg,var(--cyan),#a3ffe9);border:0;color:#07121b;font-weight:800;padding:12px 16px;border-radius:12px;cursor:pointer;text-decoration:none;display:inline-block}button.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}button.danger{background:#4b1e30;color:#ffdce4;border:1px solid #85344f}button:disabled{opacity:.5;cursor:not-allowed}
+main{max-width:1050px;margin:auto;padding:10px 16px 50px}.card{background:linear-gradient(150deg,#151e33ee,#101728f5);border:1px solid var(--line);border-radius:20px;padding:22px;margin:14px 0;box-shadow:0 15px 45px #0003}.card h2{margin-top:0}.muted{color:var(--muted)}.notice{border:1px solid #6d5e30;background:#2d2817;color:#ffe8a3;padding:13px;border-radius:12px;font-size:14px;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.reward{border:1px solid var(--line);border-radius:15px;padding:16px;background:#0d1425;cursor:pointer}.reward:has(input:checked){border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan)}label{display:block;font-weight:650;margin:12px 0 6px}input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0a1020;color:var(--text);font:inherit}input[type=radio],input[type=checkbox]{width:auto}input[type=file]{padding:9px}small{color:var(--muted)}.hidden{display:none!important}.status{display:inline-block;padding:4px 9px;border-radius:99px;background:#293451;color:#dce7ff;font-size:12px}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.stat{padding:14px;background:#0b1324;border:1px solid var(--line);border-radius:12px}.stat b{font-size:24px;display:block;color:var(--cyan)}.request{border:1px solid var(--line);border-radius:14px;padding:15px;margin:12px 0;background:#0b1324}.request img{max-width:100%;max-height:350px;object-fit:contain;border-radius:10px;display:block;margin:10px 0}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">ROBux <span>GAMER HUB</span></div>
+  <p>Campanhas e solicitações de recompensa para a comunidade Roblox.</p>
+</header>
+<nav>
+  <button onclick="showPage('visitor')">Solicitar recompensa</button>
+  <button class="secondary" onclick="showPage('admin')">Painel do administrador</button>
+</nav>
+<main>
+<section id="visitorPage">
+  <div class="card">
+    <h2>🎁 Solicitar Robux</h2>
+    <p class="muted">Preencha seus dados e confira as regras da campanha antes de enviar.</p>
+    <div class="card" style="background:#0d1425;border-color:#49e6d0">
+      <h3>🔗 Etapa 1 — Completar tarefa</h3>
+      <p class="muted">Acesse o link do TikTok e confira as instruções da campanha. Depois, se houver uma tarefa válida para concluir, envie o comprovante abaixo.</p>
+      <a class="btn" href="https://www.tiktok.com/d/4/ZS9DwqsxPVFvC-CqiDe/" target="_blank" rel="noopener noreferrer">Completar tarefa para solicitar Robux</a>
+    </div>
+    <div class="notice">Aviso: enviar uma solicitação não garante o recebimento. Cada pedido depende da elegibilidade, disponibilidade e dos limites oficiais de transferência do Roblox. Não informe sua senha, e-mail de login ou códigos de verificação.</div>
+    <form id="requestForm">
+      <label for="nickname">Nick exato do Roblox</label>
+      <input id="nickname" name="nickname" required maxlength="40" placeholder="Ex.: MeuNickRoblox" autocomplete="off">
+      <div id="avatarPreview" class="hidden" style="display:flex;align-items:center;gap:12px;margin-top:12px;padding:12px;background:#0b1324;border:1px solid #2b3a5e;border-radius:14px">
+        <img id="avatarImage" alt="Avatar público do Roblox" width="76" height="76" style="border-radius:14px;background:#1a2540;object-fit:cover">
+        <div><b id="avatarName"></b><div id="avatarStatus" class="muted" style="font-size:13px">Buscando perfil público do Roblox…</div></div>
+      </div>
+      <p id="avatarError" class="muted" role="status" style="font-size:13px"></p>
+      <label>Quantidade desejada</label>
+      <div class="grid">
+        <label class="reward"><input type="radio" name="amount" value="1000" required> <b>1.000 Robux</b><br><small>Pedido sujeito à análise</small></label>
+        <label class="reward"><input type="radio" name="amount" value="2000"> <b>2.000 Robux</b><br><small>Pedido sujeito à análise</small></label>
+        <label class="reward"><input type="radio" name="amount" value="5000"> <b>5.000 Robux</b><br><small>Pedido sujeito à análise</small></label>
+        <label class="reward"><input type="radio" name="amount" value="20000"> <b>20.000 Robux</b><br><small>Pedido sujeito à análise e aos limites oficiais</small></label>
+      </div>
+      <label for="campaign">Link da campanha ou tarefa concluída (se aplicável)</label>
+      <input id="campaign" name="campaign" type="url" placeholder="https://...">
+      <label for="proof">Comprovante (imagem PNG/JPG/WebP, até 5 MB)</label>
+      <input id="proof" name="proof" type="file" accept="image/png,image/jpeg,image/webp" required>
+      <img id="preview" class="hidden" alt="Prévia do comprovante" style="max-width:100%;max-height:280px;margin-top:12px;border-radius:12px">
+      <label><input type="checkbox" id="agree" required> Entendo que a solicitação será analisada e que não há garantia de aprovação.</label>
+      <p><button id="submitBtn" type="submit">Enviar solicitação</button></p>
+      <p id="formMessage" role="status" class="muted"></p>
+    </form>
+  </div>
+</section>
+
+<section id="adminPage" class="hidden">
+  <div class="card">
+    <h2>🔐 Painel do administrador</h2>
+    <p class="muted">Use o login do Supabase que você configurou como administrador. Este painel nunca pede sua senha do Roblox.</p>
+    <div id="adminConfigNotice" class="notice">Configuração necessária: abra <b>app.js</b> e preencha a URL e a chave pública (anon/publishable) do seu projeto Supabase; depois execute o arquivo <b>setup.sql</b> no SQL Editor. Não use a chave service_role no navegador.</div>
+    <form id="adminLoginForm">
+      <label for="adminEmail">E-mail do administrador</label><input id="adminEmail" type="email" required autocomplete="username">
+      <label for="adminPassword">Senha do painel</label><input id="adminPassword" type="password" required autocomplete="current-password">
+      <div class="row" style="margin-top:12px"><button type="submit">Entrar</button><button class="secondary" type="button" id="logoutBtn">Sair</button></div>
+    </form>
+    <p id="adminMessage" role="status" class="muted"></p>
+  </div>
+  <div id="adminDashboard" class="hidden">
+    <div class="card"><h2>Visão geral</h2><div class="stats"><div class="stat"><b id="totalCount">0</b>Total</div><div class="stat"><b id="pendingCount">0</b>Pendentes</div><div class="stat"><b id="approvedCount">0</b>Aprovados</div><div class="stat"><b id="rejectedCount">0</b>Recusados</div></div>
+    <div class="row" style="margin-top:14px"><button id="refreshBtn" type="button">Atualizar pedidos</button><select id="statusFilter"><option value="all">Todos os status</option><option value="pending">Pendentes</option><option value="approved">Aprovados</option><option value="rejected">Recusados</option></select></div></div>
+    <div class="card"><h2>Pedidos recebidos</h2><div id="requestList"><p class="muted">Entre para carregar os pedidos.</p></div></div>
+  </div>
+</section>
+</main>
+<div class="footer">Robux Gamer Hub é um projeto independente, não afiliado nem patrocinado pela Roblox Corporation.</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+</body></html>
